@@ -82,11 +82,36 @@ controller.on('rtm_close', function (bot) {
 // BEGIN EDITING HERE!
 
 controller.on('bot_channel_join', function (bot, message) {
-    bot.reply(message, "I'm here!")
+    bot.reply(message, "Balance those braces!")
 });
 
-controller.hears('hello', 'direct_message', function (bot, message) {
-    bot.reply(message, 'Hello!');
+const postFixes = [
+    'Stop, it itches.',
+    'Just.  Why would you?',
+    'You monster.',
+    'Oh, the humanity.',
+    'Won\'t somebody think of the children?',
+    'Balance yo shit.'
+];
+
+function random(set) {
+    return set[ Math.floor(Math.rand() * set.length) ];
+}
+
+controller.hears('(', 'ambient', function (bot, message) {
+    let open = [], position = 0;
+    for(let chr of message) {
+        if (chr === '(') {
+            open.push(position);
+        }else if (chr === ')') {
+            open.shift();
+        }
+        ++position;
+    }
+    
+    if (open.length > 0) {
+        bot.say(message, '`Error: unmatched parenthesis at column ' + open.unshift() + ' - ' + random(postFixes) + '`');
+    }
 });
 
 
