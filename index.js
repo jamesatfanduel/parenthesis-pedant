@@ -100,7 +100,7 @@ function random(set) {
 
 controller.hears('(', 'ambient', function (bot, message) {
     let open = [], position = 0;
-    for(let chr of message) {
+    for(let chr of message.match[ 0 ]) {
         if (chr === '(') {
             open.push(position);
         }else if (chr === ')') {
