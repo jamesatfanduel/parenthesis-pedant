@@ -95,7 +95,7 @@ const postFixes = [
 ];
 
 function random(set) {
-    return set[ Math.floor(Math.rand() * set.length) ];
+    return set[ Math.random() * set.length | 0 ];
 }
 
 controller.hears('(', 'ambient', function (bot, message) {
